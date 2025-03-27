@@ -1,47 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Sign-In</title>
+    <script src="https://alcdn.msauth.net/browser/2.32.1/js/msal-browser.min.js"></script>
+</head>
 <body>
-	<!-- Microsoft Sign-In Button -->
-	<button onclick="signInWithMicrosoft()">Sign in with Microsoft</button>
-	
-	<script>
-		// Microsoft App Configuration
-		const msalConfig = {
-			auth: {
-				clientId: "YOUR_MICROSOFT_CLIENT_ID", // Replace with your actual Client ID
-				authority: "https://login.microsoftonline.com/common", // Use 'common' for multiple tenants
-				redirectUri: window.location.origin // Redirects back to your site after login
-			}
-		};
-		
-		// Initialize MSAL instance
-		const msalInstance = new msal.PublicClientApplication(msalConfig);
-		
-		// Microsoft Login Function
-		async function signInWithMicrosoft() {
-			try {
-				const loginResponse = await msalInstance.loginPopup({
-					scopes: ["User.Read"] // Request user profile data
-				});
-				
-				console.log("Login Success:", loginResponse);
-				
-				// Fetch user details
-				getUserProfile(loginResponse.account);
-			} catch (error) {
-				console.error("Login Failed:", error);
-			}
-		}
-		
-		// Function to Get User Profile Data
-		async function getUserProfile(account) {
-			console.log("User Info:", {
-				id: account.localAccountId,
-				username: account.username,
-				name: account.name
-			});
-		}
-	</script>
-	<script src="https://alcdn.msauth.net/browser/2.32.1/js/msal-browser.min.js"></script>
+
+    <!-- Microsoft Sign-In Button -->
+    <button onclick="signInWithMicrosoft()">Sign in with Microsoft</button>
+
+    <script>
+        // Microsoft App Configuration
+        const msalConfig = {
+            auth: {
+                clientId: "YOUR_MICROSOFT_CLIENT_ID", // Replace with your actual Client ID
+                authority: "https://login.microsoftonline.com/common", // Use 'common' for multiple tenants
+                redirectUri: window.location.origin // Redirects back to your site after login
+            }
+        };
+
+        // Initialize MSAL instance
+        const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+        // Microsoft Login Function
+        async function signInWithMicrosoft() {
+            try {
+                const loginResponse = await msalInstance.loginPopup({
+                    scopes: ["User.Read"] // Request user profile data
+                });
+
+                console.log("Login Success:", loginResponse);
+
+                // Fetch user details
+                getUserProfile(loginResponse.account);
+            } catch (error) {
+                console.error("Login Failed:", error);
+            }
+        }
+
+        // Function to Get User Profile Data
+        async function getUserProfile(account) {
+            console.log("User Info:", {
+                id: account.localAccountId,
+                username: account.username,
+                name: account.name
+            });
+        }
+    </script>
+
 </body>
 </html>

@@ -1,60 +1,55 @@
 <!DOCTYPE html>
 <html>
-	<link rel="stylesheet" type="text/css" href="style.css">
 	<style>
-		.rgb {
-			width: 10em;
-			height: 10em;
-			background-color:blue;
-			animation-name: rgb;
-			animation-duration: 8s;
-			animation-iteration-count: infinite;
+		#cube {
+			background-color: black;
+			width: 3em;
+			height: 3em;
+			position: absolute;
+			bottom: 1em;
 		}
-		@keyframes rgb {
-			33% {
-				background-color:red;
-			}
-			66% {
-				background-color:green;
-			}
-			100% {
-				background-color:blue;
-			}
+		#spike {
+			background-color: red;
+			width: 3em;
+			height: 3em;
+			position: absolute;
+			bottom: 1em;
+			right: 1em;
+			animation: spike 2s linear infinite;
 		}
-		.slide {
-			position: relative;
-			left: 69em;
-			width: 10em;
-			height: 10em;
-			background-color: aqua;
-			animation-name: slide;
-			animation-duration: 5s;
-			animation-iteration-count: infinite;
-			animation-direction: alternate;
+		.jump {animation: jump 1s;}
+		@keyframes spike {
+			0% {right: 1em;}
+			100% {right: 100%}
 		}
-		@keyframes slide {
-			100% {
-				left: 0em;
-			}
-		}
+		@keyframes jump {
+			0% {bottom: 1em;}
+			40% {bottom: 5em;}
+			60% {bottom: 5em;}
+			100% {bottom: 1em;}
+		}   
 	</style>
-	<script>
-		document.addEventListener("keydown", function(event) {
-			(document.getElementById("slide")).style.backgroundColor="#"+Math.floor(Math.random()*16777215).toString(16).padStart(6,"0");
-		});
-		document.addEventListener("click", function(event) {
-			(document.getElementById("slide")).style.backgroundColor="#"+Math.floor(Math.random()*16777215).toString(16).padStart(6,"0");
-		});
-	</script>
-	<a href="index.html" class="logo">
-		<picture>
-			<source srcset="SVGs/llogo.svg" media="(prefers-color-scheme: light)">
-			<source srcset="SVGs/dlogo.svg" media="(prefers-color-scheme: dark)">
-			<img src="SVGs/dlogo.svg" style="height: 1em">
-		</picture>
-	</a>
 	<body>
-		<div class="rgb"></div>
-		<div class="slide" id="slide"></div>
+		<div id="cube"></div>
+		<div id="spike"></div>
+		<script>
+			function jump() {
+				document.getElementById("cube").classList.add("jump")
+				setTimeout(function() {
+					document.getElementById("cube").classList.remove("jump")
+				}, 1000)
+			}
+			document.addEventListener("keypress", function(event) {
+				jump()
+			})
+			setInterval(function() {
+				const cubebottom = parseInt(window.getComputedStyle(document.getElementById("cube")).getPropertyValue("bottom"))
+				const spikeleft = parseInt(window.getComputedStyle(document.getElementById("spike")).getPropertyValue("left"))
+				console.log(spikeleft)
+				if (spikeleft < 60 && cubebottom < 64) {
+					alert("skill issue")
+				}
+			}, 50)
+		</script>
 	</body>
 </html>

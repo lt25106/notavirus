@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<style>
 		#cube {
 			background-color: black;
@@ -27,7 +28,10 @@
 			40% {bottom: 5em;}
 			60% {bottom: 5em;}
 			100% {bottom: 1em;}
-		}   
+		}
+		@media (prefers-color-scheme: dark) {
+			#cube {background-color: white;}
+		}
 	</style>
 	<body>
 		<div id="cube"></div>

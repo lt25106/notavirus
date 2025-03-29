@@ -18,15 +18,14 @@
 			right: 1em;
 			animation: spike 2s linear infinite;
 		}
-		.jump {animation: jump 1s;}
+		.jump {animation: jump 1s linear;}
 		@keyframes spike {
 			0% {right: 1em;}
 			100% {right: 100%}
 		}
 		@keyframes jump {
 			0% {bottom: 1em;}
-			40% {bottom: 5em;}
-			60% {bottom: 5em;}
+			50% {bottom: 7em;}
 			100% {bottom: 1em;}
 		}
 		@media (prefers-color-scheme: dark) {
@@ -39,6 +38,7 @@
             <source srcset="SVGs/dlogo.svg" media="(prefers-color-scheme: dark)">
             <img src="SVGs/dlogo.svg" style="height: 1em">
         </picture>
+		<h1 id="attempt">0</h1>
 		<div id="cube"></div>
 		<div id="spike"></div>
 		<script>
@@ -53,9 +53,11 @@
 			setInterval(function() {
 				const cubebottom = parseInt(window.getComputedStyle(document.getElementById("cube")).getPropertyValue("bottom"))
 				const spikeleft = parseInt(window.getComputedStyle(document.getElementById("spike")).getPropertyValue("left"))
+				document.getElementById("attempt").innerText++
 				console.log(spikeleft)
 				if (spikeleft < 60 && cubebottom < 64) {
 					alert("skill issue")
+					location.reload()
 				}
 			}, 50)
 		</script>

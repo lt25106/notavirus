@@ -33,13 +33,16 @@
 		}
 	</style>
 	<body>
-		<a href="index.html" class="logo">
-			<picture>
-				<source srcset="SVGs/llogo.svg" media="(prefers-color-scheme: light)">
-				<source srcset="SVGs/dlogo.svg" media="(prefers-color-scheme: dark)">
-				<img src="SVGs/dlogo.svg" style="height: 1em">
-			</picture>
-		</a>
+		<div style="position: absolute;right: 0;">
+			<a href="index.html" class="logo">
+				<picture>
+					<source srcset="SVGs/llogo.svg" media="(prefers-color-scheme: light)">
+					<source srcset="SVGs/dlogo.svg" media="(prefers-color-scheme: dark)">
+					<img src="SVGs/dlogo.svg" style="height: 1em">
+				</picture>
+			</a>
+			<img src="drawing.svg" style="height: 1em;border-radius: 0.2em;">, a part of &nbsp;
+		</div>
 		<h1 id="attempt">0</h1>
 		<div id="cube"></div>
 		<div id="spike"></div>

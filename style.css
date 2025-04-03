@@ -1,5 +1,10 @@
 body {background-color: white;}
 .logo {float: right;}
+#squaredash {
+    height: 3em;
+    border-radius: 0.5em;
+    box-shadow: 0 0 1em;
+}
 @media (prefers-color-scheme: dark) {
     body {
         background-color: black;

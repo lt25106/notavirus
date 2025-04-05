@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+            display: flex;
+            align-content: center;
+        }
+        canvas {
+            border: 0.25em solid;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <body>
+        <canvas id="canvas" width="480" height="630"></canvas>
+        Use the arrow keys!
+    </body>
+    <script>
+
+        const canvas=document.getElementById("canvas");
+        const ctx=canvas.getContext("2d");
+
+        let x=240;
+        let y=314;
+        let dhalfwidth=2;
+        let dy=-2;
+
+        ctx.beginPath();
+        ctx.arc(x,y,10,0,Math.PI*2);
+        ctx.fillStyle="#FF0000";
+        ctx.fill();
+        ctx.closePath();
+
+        function goup() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.beginPath();
+            ctx.arc(x,y,10,0,Math.PI*2);
+            ctx.fillStyle="#FF0000";
+            ctx.fill();
+            ctx.closePath();
+            y -= 1;
+        }
+
+        function godown() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.beginPath();
+            ctx.arc(x,y,10,0,Math.PI*2);
+            ctx.fillStyle="#FF0000";
+            ctx.fill();
+            ctx.closePath();
+            y += 1
+        }
+
+        function goleft() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.beginPath();
+            ctx.arc(x,y,10,0,Math.PI*2);
+            ctx.fillStyle="#FF0000";
+            ctx.fill();
+            ctx.closePath();
+            x -= 1;
+        }
+
+        function goright() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.beginPath();
+            ctx.arc(x,y,10,0,Math.PI*2);
+            ctx.fillStyle="#FF0000";
+            ctx.fill();
+            ctx.closePath();
+            x += 1;
+        }
+
+        document.addEventListener("keydown", keydown);
+
+        function keydown(key) {
+            if (key.key == "ArrowUp") {
+                setInterval(goup,16);
+            }
+            if (key.key == "ArrowDown") {
+                setInterval(godown,16);
+            }
+            if (key.key == "ArrowLeft") {
+                setInterval(goleft,16);
+            }
+            if (key.key == "ArrowRight") {
+                setInterval(goright,16);
+            }
+        }
+
+    </script>
+</html>

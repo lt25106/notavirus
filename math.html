@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html>
-	<audio id="correct-sound" src="Sounds/correct.mp3" preload="auto"></audio>
-	<audio id="wrong-sound" src="Sounds/wrong.mp3" preload="auto"></audio>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<audio id = "correct-sound" src = "Sounds/correct.mp3" preload = "auto"></audio>
+	<audio id = "wrong-sound" src = "Sounds/wrong.mp3" preload = "auto"></audio>
+	<link rel = "stylesheet" type = "text/css" href = "style.css">
 	<script>
 		const m = Math.ceil(Math.random()*11);
 		const x = Math.round(Math.random()*11);
 		const C = Math.round(Math.random()*11);
-		let marks=Number(localStorage.getItem("marks")) ||0;
-		let maxmarks=Number(localStorage.getItem("maxmarks")) ||0;
+		let marks = Number(localStorage.getItem("marks")) ||0;
+		let maxmarks = Number(localStorage.getItem("maxmarks")) ||0;
 		window.onload = function() {
-			document.getElementById("eq").innerHTML=m*x+C + " = " + m + "<i>x</i>" + " + " + C;
-			document.getElementById("marksovermax").innerHTML=
-				'<button onclick="reset()" style="text-align:right;font-size:1em">Reset</button>'+marks+"/"+maxmarks;}
+			document.getElementById("eq").innerHTML = m*x+C + " = " + m + "<i>x</i>" + " + " + C;
+			document.getElementById("marksovermax").innerHTML = 
+				'<button onclick = "reset()" style = "text-align:right;font-size:1em">Reset</button>'+marks+"/"+maxmarks;}
 		function checkans(e) {
 			if (e.key === "Enter") {
 				maxmarks++;
 				if (Number(document.getElementById("ans").value) === x) {
-					document.getElementById("corw").innerHTML="Correct! ✓";
-					document.getElementById("corw").style.color="green";
+					document.getElementById("corw").innerHTML = "Correct! ✓";
+					document.getElementById("corw").style.color = "green";
 					document.getElementById("correct-sound").play();
 					marks++;
-					setTimeout(() => {location.reload();}, 1000);
+					setTimeout(()  => {location.reload();}, 1000);
 				} else {
-					document.getElementById("corw").innerHTML="Wrong! ✗"
-					document.getElementById("corw").style.color="red"
+					document.getElementById("corw").innerHTML = "Wrong! ✗"
+					document.getElementById("corw").style.color = "red"
 					document.getElementById("wrong-sound").play()
 				};
-				document.getElementById("marksovermax").innerHTML=
-					'<button onclick="reset()" style="text-align:right;font-size:1em">Reset</button>'+marks+"/"+maxmarks;
+				document.getElementById("marksovermax").innerHTML = 
+					'<button onclick = "reset()" style = "text-align:right;font-size:1em">Reset</button>'+marks+"/"+maxmarks;
 				localStorage.setItem("marks", marks);
 				localStorage.setItem("maxmarks", maxmarks);
 			};
@@ -40,26 +40,26 @@
 		}
 	</script>
 	<body>
-		<a href="index.html" class="logo">
+		<a href = "index.html" class = "logo">
 			<picture>
-				<source srcset="SVGs/llogo.svg" media="(prefers-color-scheme: light)">
-				<source srcset="SVGs/dlogo.svg" media="(prefers-color-scheme: dark)">
-				<img src="SVGs/dlogo.svg" style="height: 1em">
+				<source srcset = "SVGs/llogo.svg" media = "(prefers-color-scheme: light)">
+				<source srcset = "SVGs/dlogo.svg" media = "(prefers-color-scheme: dark)">
+				<img src = "SVGs/dlogo.svg" style = "height: 1em">
 			</picture>
 		</a>
-		<h1 style="font-size:8em">
+		<h1 style = "font-size:8em">
 			Math Quiz
 			<picture>
-				<source srcset="SVGs/lp.svg" media="(prefers-color-scheme: light)">
-				<source srcset="SVGs/dp.svg" media="(prefers-color-scheme: dark)">
-				<img src="SVGs/dp.svg" style="height: 1em">
+				<source srcset = "SVGs/lp.svg" media = "(prefers-color-scheme: light)">
+				<source srcset = "SVGs/dp.svg" media = "(prefers-color-scheme: dark)">
+				<img src = "SVGs/dp.svg" style = "height: 1em">
 			</picture>
 		</h1>
-		<div id=eq style="font-size:4em"></div>
-		<div style="font-size:4em">
-			<i>x</i> = <input id="ans" type="number" style="font-size:1em;" onkeydown="checkans(event)" autofocus>
+		<div id = eq style = "font-size:4em"></div>
+		<div style = "font-size:4em">
+			<i>x</i> = <input id = "ans" type = "number" style = "font-size:1em;" onkeydown = "checkans(event)" autofocus>
 		</div>
-		<div id="corw" style="font-size:4em;"></div>
-		<div id="marksovermax" style="text-align:right;font-size:4em"></div>
+		<div id = "corw" style = "font-size:4em;"></div>
+		<div id = "marksovermax" style = "text-align:right;font-size:4em"></div>
 	</body>
 </html>

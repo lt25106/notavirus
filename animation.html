@@ -8,6 +8,8 @@
 			height: 3em;
 			position: absolute;
 			bottom: 1em;
+			box-shadow: 0 0 2em;
+			border-radius: 0.25em;
 		}
 		#spike {
 			background-color: red;
@@ -16,7 +18,14 @@
 			position: absolute;
 			bottom: 1em;
 			right: 1em;
+			box-shadow: 0 0 2em red;
 			animation: spike 2s linear infinite;
+			animation-play-state: paused;
+		}
+		#startbutton {
+			box-shadow: 0 0 1em;
+			font-size: 12em;
+			border-radius: 0.2em;
 		}
 		.jump {animation: jump 1s linear;}
 		@keyframes spike {
@@ -30,6 +39,7 @@
 		}
 		@media (prefers-color-scheme: dark) {
 			#cube {background-color: white;}
+			#startbutton {box-shadow: 0 0 1em white;}
 		}
 	</style>
 	<body>
@@ -44,27 +54,40 @@
 			<img src="drawing.svg" style="height: 1em;border-radius: 0.2em;">, a part of &nbsp;
 		</div>
 		<h1 id="attempt">0</h1>
+		<button onclick="startstop()" id="startbutton">Start</button>
 		<div id="cube"></div>
 		<div id="spike"></div>
 		<script>
+
+			const spike = document.getElementById("spike");
+
 			function jump() {
 				document.getElementById("cube").classList.add("jump")
 				setTimeout(function() {
 					document.getElementById("cube").classList.remove("jump")
 				}, 1000)
 			}
+
 			document.addEventListener("keypress", function(event) {jump()})
 			document.addEventListener("click", function(event) {jump()})
+
 			setInterval(function() {
 				const cubebottom = parseInt(window.getComputedStyle(document.getElementById("cube")).getPropertyValue("bottom"))
-				const spikeleft = parseInt(window.getComputedStyle(document.getElementById("spike")).getPropertyValue("left"))
-				document.getElementById("attempt").innerText++
+				const spikeleft = parseInt(window.getComputedStyle(spike).getPropertyValue("left"))
+				if (spike.style.animationPlayState == "running") {document.getElementById("attempt").innerText++}
 				console.log(spikeleft)
 				if (spikeleft < 60 && cubebottom < 64) {
 					alert("skill issue")
 					location.reload()
 				}
 			}, 50)
+
+			function startstop() {
+				const started = spike.style.animationPlayState == "running";
+				document.getElementById("startbutton").innerText = started ? "Start" : "Pause"
+				spike.style.animationPlayState = started ? "paused" : "running";
+			}
+
 		</script>
 	</body>
 </html>

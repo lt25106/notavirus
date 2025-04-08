@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <style>
+        body {font-family: 'Bahnschrift', san-serif;}
         div {
             display: flex;
         }
@@ -12,6 +13,13 @@
         #text {
             align-self: center;
             font-size: 2em;
+        }
+        button {
+            font-size: 1em;
+            font-family: 'Bahnschrift', san-serif;
+            border-radius: 0.5em;
+            background-color: #fcd53f;
+            box-shadow: 0 0 1em white;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -27,17 +35,20 @@
             <canvas id="canvas" width="480" height="630"></canvas>
             <span id="text">
                 &nbsp;Try and collect the yellow coin! 🟡<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⬆️<br>
+                <span style="margin-left: 10.83em;">⬆️</span><br>
                 &nbsp;Use the arrow keys! ⬅️⬇️➡️ <br>
                 &nbsp;Score:
                 <span id="score">0</span>
+                <button onclick="localStorage.removeItem('Score');location.reload()">Reset</button>
             </span>
         </div>
     </body>
     <script>
-
         const canvas=document.getElementById("canvas");
         const ctx=canvas.getContext("2d");
+        const score=document.getElementById("score");
+
+        score.innerText = localStorage.getItem("Score") || 0;
 
         let x=240;
         let y=314;
@@ -88,13 +99,14 @@
 
         function collideDetect() {
             if (Math.hypot(coinx - x,coiny - y) < 20) {
-                document.getElementById("score").innerText = parseInt(document.getElementById("score").innerText) + 1 ;
+                score.innerText = parseInt(score.innerText) + 1 ;
+                localStorage.setItem("Score", score.innerText);
+
                 coinx = Math.random()*480;
                 coiny = Math.random()*480;
             } // 19
         }
 
         document.addEventListener("keydown", setd)
-
     </script>
 </html>

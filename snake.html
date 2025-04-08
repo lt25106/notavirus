@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
     <style>
+        div {
+            display: flex;
+        }
         canvas {
             border: 0.25em solid;
             border-radius: 1em;
             box-shadow: 0 0 1em;
         }
-        span {
-            font-size: 5em;
-            position: absolute;
-            bottom: 50%
+        #text {
+            align-self: center;
+            font-size: 2em;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="style.css">
     <body>
-        <canvas id="canvas" width="480" height="630"></canvas>
         <a href="index.html" class="logo">
             <picture>
                 <source srcset="SVGs/llogo.svg" media="(prefers-color-scheme: light)">
@@ -22,7 +23,16 @@
                 <img src="SVGs/dlogo.svg" style="height: 1em">
             </picture>
         </a>
-        <span>&nbsp;Use the arrow keys!</span>
+        <div>
+            <canvas id="canvas" width="480" height="630"></canvas>
+            <span id="text">
+                &nbsp;Try and collect the yellow coin! 🟡<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⬆️<br>
+                &nbsp;Use the arrow keys! ⬅️⬇️➡️ <br>
+                &nbsp;Score:
+                <span id="score">0</span>
+            </span>
+        </div>
     </body>
     <script>
 
@@ -33,34 +43,58 @@
         let y=314;
         let dx=0;
         let dy=0;
-
-        ctx.beginPath();
-        ctx.arc(x,y,10,0,Math.PI*2);
-        ctx.fillStyle="#FF0000";
-        ctx.fill();
-        ctx.closePath();
+        let coinx=Math.random()*480;
+        let coiny=Math.random()*480;
 
         setInterval(move,16)
+        setInterval(collideDetect,16)
 
-        function move(key) {
+        function move() {
             x += dx
             y += dy
-
+            
             ctx.clearRect(0, 0, canvas.width, canvas.height)
             ctx.beginPath();
             ctx.arc(x,y,10,0,Math.PI*2);
             ctx.fillStyle="#FF0000";
             ctx.fill();
             ctx.closePath();
+            
+            ctx.beginPath();
+            ctx.arc(coinx,coiny,10,0,Math.PI*2);
+            ctx.fillStyle="#FFFF00";
+            ctx.fill();
+            ctx.closePath();
+            
+            x = Math.max(10, Math.min(canvas.width - 10, x));
+            y = Math.max(10, Math.min(canvas.height - 10, y));
+            
+            if (x <= 10 || x + 10 >= canvas.width) {
+                dx = 0;
+            }
+            
+            // Top or bottom wall
+            if (y <= 10 || y + 10 >= canvas.height) {
+                dy = 0;
+            }
         }
-        
-        document.addEventListener("keydown", setd);
-        
+
         function setd(key) {
             if (key.key == "ArrowUp") {dy -= 2}
             if (key.key == "ArrowDown") {dy += 2}
             if (key.key == "ArrowLeft") {dx -= 2}
             if (key.key == "ArrowRight") {dx += 2}
         }
+
+        function collideDetect() {
+            if (Math.hypot(coinx - x,coiny - y) < 20) {
+                document.getElementById("score").innerText = parseInt(document.getElementById("score").innerText) + 1 ;
+                coinx = Math.random()*480;
+                coiny = Math.random()*480;
+            } // 19
+        }
+
+        document.addEventListener("keydown", setd)
+
     </script>
 </html>

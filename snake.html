@@ -25,12 +25,18 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <body>
         <a href="index.html" class="logo">
+            , a part of 
             <picture>
                 <source srcset="SVGs/llogo.svg" media="(prefers-color-scheme: light)">
                 <source srcset="SVGs/dlogo.svg" media="(prefers-color-scheme: dark)">
                 <img src="SVGs/dlogo.svg" style="height: 1em">
             </picture>
         </a>
+        <picture>
+            <source srcset="lcoinquest.svg" media="(prefers-color-scheme: light)">
+            <source srcset="dcoinquest.svg" media="(prefers-color-scheme: dark)">
+            <img src="dcoinquest.svg" style="height: 1em" class="logo">
+        </picture>
         <div>
             <canvas id="canvas" width="480" height="630"></canvas>
             <span id="text">
